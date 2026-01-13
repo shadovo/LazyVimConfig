@@ -108,7 +108,13 @@ function M.lint_project()
       vim.schedule(function()
         if #all_entries > 0 then
           vim.fn.setqflist({}, "r", { title = "Project Lint", items = all_entries })
-          vim.cmd("copen")
+          -- Use Trouble for nicer quickfix display if available
+          local ok, trouble = pcall(require, "trouble")
+          if ok then
+            trouble.open({ mode = "quickfix", focus = true })
+          else
+            vim.cmd("copen")
+          end
           vim.notify(string.format("Linting found %d issues", #all_entries), vim.log.levels.WARN)
         else
           vim.fn.setqflist({}, "r", { title = "Project Lint", items = {} })
