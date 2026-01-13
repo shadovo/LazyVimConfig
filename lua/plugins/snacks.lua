@@ -18,12 +18,24 @@ return {
           ".DS_Store",
         },
         sources = {
+          files = {
+            hidden = true,
+            ignored = true,
+          },
+          grep = {
+            hidden = true,
+            ignored = true,
+          },
           explorer = {
+            hidden = true,
             include = {
               "node_modules",
             },
           },
         },
+      },
+      explorer = {
+        hidden = true,
       },
     },
   },

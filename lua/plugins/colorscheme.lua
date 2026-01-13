@@ -18,20 +18,16 @@ return {
       vim.api.nvim_set_hl(0, "@markup.link.url.markdown_inline", { link = "DraculaCyan" })
       vim.api.nvim_set_hl(0, "@markup.link.label.markdown_inline", { link = "DraculaPink" })
 
-      -- vim.api.nvim_set_hl(0, '@markup.raw.block.markdown', { fg = '#F1FA8C', bg = '#191b29' })
-      -- vim.api.nvim_set_hl(0, '@markup.raw.markdown_inline', { fg = '#F1FA8C', bg = '#191b29' })
       vim.api.nvim_set_hl(0, "RenderMarkdownH1Bg", { fg = "#BD93F9", bg = "#36354a" })
       vim.api.nvim_set_hl(0, "RenderMarkdownH2Bg", { fg = "#50FA7B", bg = "#2d403e" })
       vim.api.nvim_set_hl(0, "RenderMarkdownH3Bg", { fg = "#F1FA8C", bg = "#3d3f3f" })
       vim.api.nvim_set_hl(0, "RenderMarkdownH4Bg", { fg = "#FFB86C", bg = "#3e393c" })
       vim.api.nvim_set_hl(0, "RenderMarkdownH5Bg", { fg = "#8BE9FD", bg = "#323d4a" })
       vim.api.nvim_set_hl(0, "RenderMarkdownH6Bg", { fg = "#8BE9FD", bg = "#323d4a" })
+
+      vim.api.nvim_set_hl(0, "DraculaSubtle", { fg = "#6272a4" })
+      -- vim.api.nvim_set_hl(0, "SnacksPickerPathHidden", { fg = "#6272a4" })
+      vim.api.nvim_set_hl(0, "SnacksPickerPathHidden", { link = "Normal" })
     end,
-  },
-  {
-    "LazyVim/LazyVim",
-    opts = {
-      colorscheme = "dracula",
-    },
   },
 }
