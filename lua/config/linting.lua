@@ -26,10 +26,14 @@ local function parse_eslint_output(output)
 end
 
 -- Parse svelte-check machine output into quickfix entries
+-- Format: TIMESTAMP SEVERITY "filepath" line:col "message"
 local function parse_svelte_check_output(output)
   local entries = {}
   for line in output:gmatch("[^\r\n]+") do
-    local filepath, lnum, col, severity, message = line:match("^(.+):(%d+):(%d+)%s+(%w+)%s+(.+)$")
+    -- Match: timestamp ERROR/WARNING "filepath" line:col "message"
+    local severity, filepath, lnum, col, message = line:match(
+      '^%d+%s+(%w+)%s+"([^"]+)"%s+(%d+):(%d+)%s+"(.+)"$'
+    )
     if filepath and lnum then
       local entry_type = "E"
       if severity and severity:lower() == "warning" then
@@ -131,11 +135,15 @@ function M.lint_project()
 
   -- Run svelte-check only if project has Svelte
   if has_svelte then
-    run_command({ "npx", "svelte-check", "--output", "machine-verbose" }, cwd, function(output)
+    run_command({ "npx", "svelte-check", "--output", "machine" }, cwd, function(output)
       if output ~= "" then
         local entries = parse_svelte_check_output(output)
         if entries then
           for _, entry in ipairs(entries) do
+            -- svelte-check outputs relative paths, make them absolute
+            if entry.filename and not entry.filename:match("^/") then
+              entry.filename = cwd .. "/" .. entry.filename
+            end
             table.insert(all_entries, entry)
           end
         end
