@@ -18,6 +18,7 @@ return {
         "typescript",
         "javascript",
         "css",
+        "scss",
         "svelte",
       })
     end,
