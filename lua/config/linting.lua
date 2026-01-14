@@ -31,9 +31,7 @@ local function parse_svelte_check_output(output)
   local entries = {}
   for line in output:gmatch("[^\r\n]+") do
     -- Match: timestamp ERROR/WARNING "filepath" line:col "message"
-    local severity, filepath, lnum, col, message = line:match(
-      '^%d+%s+(%w+)%s+"([^"]+)"%s+(%d+):(%d+)%s+"(.+)"$'
-    )
+    local severity, filepath, lnum, col, message = line:match('^%d+%s+(%w+)%s+"([^"]+)"%s+(%d+):(%d+)%s+"(.+)"$')
     if filepath and lnum then
       local entry_type = "E"
       if severity and severity:lower() == "warning" then
@@ -141,7 +139,7 @@ function M.lint_project()
 
   -- Run svelte-check only if project has Svelte
   if has_svelte then
-    run_command({ "npx", "svelte-check", "--output", "machine" }, cwd, function(output)
+    run_command({ "npx", "svelte-check", "--tsconfig", "./tsconfig.json", "--output", "machine" }, cwd, function(output)
       if output ~= "" then
         local entries = parse_svelte_check_output(output)
         if entries then

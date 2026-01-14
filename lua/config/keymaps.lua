@@ -2,7 +2,7 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 
--- Run project-wide linting (uses nvim-lint configuration)
-vim.keymap.set("n", "<leader>cL", function()
+-- Run project-wide eslint and svelte-check
+vim.keymap.set("n", "<leader>xe", function()
   require("config.linting").lint_project()
-end, { desc = "Lint Project" })
+end, { desc = "Eslint Project" })
